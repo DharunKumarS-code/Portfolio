@@ -3,6 +3,7 @@ node_modules/
 
 # Environment variables
 .env
+portfolio-website/.env
 
 # Uploads (resumes)
 portfolio-backend/uploads/resumes/

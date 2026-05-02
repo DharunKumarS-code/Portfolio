@@ -1,16 +1,32 @@
 import { Mail, Linkedin, Github, Send } from 'lucide-react'
 import { useState } from 'react'
+import API_URL from '../api'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const mailto = `mailto:sdharun7010@gmail.com?subject=Portfolio Contact from ${form.name}&body=${encodeURIComponent(form.message)}%0A%0AFrom: ${form.email}`
-    window.location.href = mailto
-    setSent(true)
-    setTimeout(() => setSent(false), 3000)
+    setStatus('loading')
+    setErrorMsg('')
+    try {
+      const res = await fetch(`${API_URL}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || 'Something went wrong')
+      setStatus('success')
+      setForm({ name: '', email: '', message: '' })
+      setTimeout(() => setStatus('idle'), 4000)
+    } catch (err) {
+      setErrorMsg(err.message)
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 4000)
+    }
   }
 
   return (
@@ -80,9 +96,12 @@ export default function Contact() {
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
                 placeholder="Tell me about the opportunity..." />
             </div>
-            <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
-              {sent ? '✓ Message Sent!' : <><Send size={18} /> Send Message</>}
+            <button type="submit" disabled={status === 'loading'} className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+              {status === 'loading' && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+              {status === 'success' ? '✓ Message Sent!' : status === 'loading' ? 'Sending...' : <><Send size={18} /> Send Message</>}
             </button>
+            {status === 'error' && <p className="text-red-500 text-sm text-center">{errorMsg}</p>}
+            {status === 'success' && <p className="text-emerald-500 text-sm text-center">Thanks! I'll get back to you soon.</p>}
           </form>
         </div>
       </div>
