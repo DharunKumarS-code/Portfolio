@@ -1,50 +1,55 @@
 export const certificates = [
   {
     id: 1,
-    title: 'Python Programming',
-    issuer: 'Issuing Organization',
-    date: '2024',
-    category: 'Development',
-    driveLink: 'https://drive.google.com/file/d/1zg6m_bDroJHgz9Bv6bSEAZpCjvWQVT1t/view?usp=drive_link',
+    title: 'Data Analytics Job Simulation',
+    issuer: 'Deloitte',
+    date: '2026',
+    category: 'Data Analytics',
+    driveLink:
+      'https://drive.google.com/file/d/1zg6m_bDroJHgz9Bv6bSEAZpCjvWQVT1t/view?usp=drive_link',
     color: 'from-blue-500 to-cyan-600',
   },
   {
     id: 2,
-    title: 'Machine Learning',
-    issuer: 'Issuing Organization',
-    date: '2024',
+    title: 'Build Your Own GPTs',
+    issuer: 'LinkedIn Learning',
+    date: '2025',
     category: 'AI/ML',
-    driveLink: 'https://drive.google.com/file/d/1HMg3LNSVUJ4omxJWBFl5YnDcVqjelYwz/view?usp=sharing',
+    driveLink:
+      'https://drive.google.com/file/d/1HMg3LNSVUJ4omxJWBFl5YnDcVqjelYwz/view?usp=sharing',
     color: 'from-indigo-500 to-purple-600',
   },
   {
     id: 3,
-    title: 'Data Analytics',
-    issuer: 'Issuing Organization',
-    date: '2024',
-    category: 'Data Analytics',
-    driveLink: 'https://drive.google.com/file/d/1eYAmbvjpHk4kYHKr2vRwwR1QIevppxai/view?usp=sharing',
+    title: 'Introduction to Artificial Intelligence (2023)',
+    issuer: 'LinkedIn Learning',
+    date: '2025',
+    category: 'AI/ML',
+    driveLink:
+      'https://drive.google.com/file/d/1eYAmbvjpHk4kYHKr2vRwwR1QIevppxai/view?usp=sharing',
     color: 'from-emerald-500 to-teal-600',
   },
   {
     id: 4,
-    title: 'Cloud Computing',
-    issuer: 'Issuing Organization',
-    date: '2024',
-    category: 'Cloud',
-    driveLink: 'https://drive.google.com/file/d/1T6ZS2GPRA9AgikyfYhstQF-AOo4ruP9V/view?usp=sharing',
+    title: 'Learning Git and GitHub',
+    issuer: 'LinkedIn Learning',
+    date: '2025',
+    category: 'Cloud & DevOps',
+    driveLink:
+      'https://drive.google.com/file/d/1T6ZS2GPRA9AgikyfYhstQF-AOo4ruP9V/view?usp=sharing',
     color: 'from-amber-500 to-orange-600',
   },
   {
     id: 5,
-    title: 'Web Development',
-    issuer: 'Issuing Organization',
-    date: '2024',
-    category: 'Development',
-    driveLink: 'https://drive.google.com/file/d/1ed1dW9jTkcRvXbQj5NVYlW0q4Uc6cyHI/view?usp=sharing',
+    title: 'Interview Skills',
+    issuer: 'TCS iON',
+    date: '2025',
+    category: 'Professional Skills',
+    driveLink:
+      'https://drive.google.com/file/d/1ed1dW9jTkcRvXbQj5NVYlW0q4Uc6cyHI/view?usp=sharing',
     color: 'from-rose-500 to-pink-600',
   },
-]
+];
 
 export const projects = [
   {
