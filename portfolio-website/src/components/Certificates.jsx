@@ -1,23 +1,24 @@
 import { useState } from 'react'
-import { ExternalLink, Award, Filter } from 'lucide-react'
+import { ExternalLink, Award, Filter, BadgeCheck } from 'lucide-react'
 import { certificates } from '../data'
 
-const categories = ['All', 'AI/ML', 'Data Analytics', 'Cloud', 'Development', 'Other']
+const categories = ['All', 'AI/ML', 'Data Analytics', 'Cloud & DevOps', 'Professional Skills']
+
+const categoryIcons = {
+  'AI/ML': '🤖',
+  'Data Analytics': '📊',
+  'Cloud & DevOps': '☁️',
+  'Professional Skills': '🎯',
+  'Other': '📜',
+}
 
 export default function Certificates() {
   const [active, setActive] = useState('All')
 
   const filtered = active === 'All' ? certificates : certificates.filter((c) => c.category === active)
 
-  // Convert Google Drive view link to embeddable preview link
-  const getPreviewUrl = (driveLink) => {
-    const match = driveLink.match(/\/d\/([a-zA-Z0-9_-]+)/)
-    if (!match) return null
-    return `https://drive.google.com/file/d/${match[1]}/preview`
-  }
-
   return (
-    <section id="certificates" className="section-padding">
+    <section id="certificates" className="section-padding bg-gray-50 dark:bg-gray-900/50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4 reveal">
@@ -34,7 +35,7 @@ export default function Certificates() {
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                 active === cat
                   ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/30'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 border border-gray-200 dark:border-gray-700'
               }`}>
               {cat === 'All' && <Filter size={14} />} {cat}
             </button>
@@ -42,39 +43,33 @@ export default function Certificates() {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 stagger">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
           {filtered.map((cert) => (
             <div key={cert.id} className="card overflow-hidden reveal group hover:-translate-y-1">
-              {/* PDF Preview */}
-              <div className="relative w-full h-52 bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                <iframe
-                  src={getPreviewUrl(cert.driveLink)}
-                  className="w-full h-full border-0 pointer-events-none"
-                  title={cert.title}
-                  loading="lazy"
-                />
-                {/* Overlay on hover */}
-                <a href={cert.driveLink} target="_blank" rel="noopener noreferrer"
-                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-medium">
-                  <ExternalLink size={20} /> View Certificate
-                </a>
+              {/* Top gradient banner */}
+              <div className={`h-28 bg-gradient-to-br ${cert.color} flex items-center justify-center relative`}>
+                <span className="text-5xl">{categoryIcons[cert.category] || '📜'}</span>
+                <div className="absolute top-3 right-3">
+                  <BadgeCheck className="text-white/80" size={22} />
+                </div>
+                <div className="absolute bottom-3 left-3">
+                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-white/20 text-white backdrop-blur-sm">
+                    {cert.category}
+                  </span>
+                </div>
               </div>
 
               {/* Info */}
               <div className="p-5">
-                <div className={`h-1 w-12 rounded-full bg-gradient-to-r ${cert.color} mb-4`} />
-                <span className="text-xs font-medium px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
-                  {cert.category}
-                </span>
-                <h3 className="text-lg font-semibold mt-3 mb-1">{cert.title}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{cert.issuer}</p>
-                <div className="flex items-center justify-between mt-4">
-                  <span className="text-xs text-gray-400">{cert.date}</span>
-                  <a href={cert.driveLink} target="_blank" rel="noopener noreferrer"
-                    className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
-                    View <ExternalLink size={12} />
-                  </a>
-                </div>
+                <h3 className="text-base font-semibold mb-1 leading-snug">{cert.title}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{cert.issuer} · {cert.date}</p>
+                <a
+                  href={cert.driveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-2 rounded-xl border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-all">
+                  <ExternalLink size={14} /> View Certificate
+                </a>
               </div>
             </div>
           ))}
