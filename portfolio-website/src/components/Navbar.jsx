@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 export default function Navbar({ darkMode, setDarkMode }) {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const links = ['About', 'Projects', 'Skills', 'Experience', 'Contact']
+  const links = ['About', 'Projects', 'Skills', 'Experience', 'Certificates', 'Contact']
 
   return (
     <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg z-50 border-b border-gray-200 dark:border-gray-800">

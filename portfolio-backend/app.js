@@ -14,6 +14,7 @@ import projectRoutes from './routes/projectRoutes.js'
 import contactRoutes from './routes/contactRoutes.js'
 import resumeRoutes from './routes/resumeRoutes.js'
 import aboutRoutes from './routes/aboutRoutes.js'
+import certificateRoutes from './routes/certificateRoutes.js'
 import errorHandler from './middleware/errorHandler.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -87,6 +88,7 @@ app.use('/api/projects', projectRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/resume', resumeRoutes)
 app.use('/api/about', aboutRoutes)
+app.use('/api/certificates', certificateRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {
