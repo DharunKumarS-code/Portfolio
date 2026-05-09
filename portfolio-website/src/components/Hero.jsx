@@ -4,6 +4,19 @@ export default function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center section-padding pt-32">
       <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+
+        {/* Profile Picture */}
+        <div className="flex justify-center">
+          <div className="relative w-36 h-36 md:w-44 md:h-44">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 blur-md opacity-50 scale-105" />
+            <img
+              src="/profile.jpg"
+              alt="Dharun Kumar"
+              className="relative w-full h-full rounded-full object-cover object-top border-4 border-white dark:border-gray-900 shadow-xl"
+            />
+          </div>
+        </div>
+
         <div className="space-y-4">
           <h1 className="text-5xl md:text-7xl font-bold">
             Hi, I'm <span className="gradient-text">Dharun Kumar</span>
@@ -14,7 +27,7 @@ export default function Hero() {
         </div>
 
         <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-          Passionate about solving real-world problems using AI, data analytics, and modern software development. 
+          Passionate about solving real-world problems using AI, data analytics, and modern software development.
           Building intelligent systems that make an impact.
         </p>
 
