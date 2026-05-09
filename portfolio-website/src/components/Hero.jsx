@@ -38,7 +38,7 @@ export default function Hero() {
           <a href="#contact" className="btn-outline">
             Get In Touch
           </a>
-          <a href="https://drive.google.com/file/d/11XQHONB-S9w1q7ob4o1pJEYM6ymfAs93/view?usp=sharing" download className="btn-outline flex items-center gap-2">
+          <a href="https://drive.google.com/file/d/1vl6BEhEU8iS9jXYiaOpBJUkydtBUjHlL/view?usp=sharing" download className="btn-outline flex items-center gap-2">
             <Download size={18} /> Resume
           </a>
         </div>
