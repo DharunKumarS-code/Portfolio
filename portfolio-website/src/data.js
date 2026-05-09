@@ -123,7 +123,8 @@ export const skills = [
   { category: 'Programming', items: ['Python', 'Java'] },
   { category: 'AI / ML', items: ['NLP', 'RAG Pipelines', 'Embeddings', 'LangChain', 'FAISS'] },
   { category: 'Data Tools', items: ['Power BI', 'Pandas', 'Scikit-learn', 'Excel'] },
-  { category: 'Dev Tools', items: ['Git', 'GitHub', 'Streamlit', 'VS Code', 'MongoDB'] },
+  { category: 'Dev Tools', items: ['Git', 'GitHub', 'Streamlit', 'VS Code'] },
+  { category: 'Databases', items: ['MongoDB'] },
   { category: 'Concepts', items: ['Data Structures', 'Analytics', 'CI/CD Basics', 'OOP'] },
 ]
 
