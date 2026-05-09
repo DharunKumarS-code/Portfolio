@@ -49,6 +49,16 @@ export const certificates = [
       'https://drive.google.com/file/d/1ed1dW9jTkcRvXbQj5NVYlW0q4Uc6cyHI/view?usp=sharing',
     color: 'from-rose-500 to-pink-600',
   },
+  {
+    id: 6,
+    title: 'Software Engineering Job Simulation',
+    issuer: 'Tom Brunskill',
+    date: '2025',
+    category: 'Development',
+    driveLink:
+      'https://drive.google.com/file/d/1bTqZpWwB0MyasXMnYCzpJpOIbEmFQgJ0/view?usp=sharing',
+    color: 'from-violet-500 to-indigo-600',
+  },
 ];
 
 export const projects = [

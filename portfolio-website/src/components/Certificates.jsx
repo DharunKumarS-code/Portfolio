@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { ExternalLink, Award, Filter, BadgeCheck } from 'lucide-react'
 import { certificates } from '../data'
 
-const categories = ['All', 'AI/ML', 'Data Analytics', 'Cloud & DevOps', 'Professional Skills']
+const categories = ['All', 'AI/ML', 'Data Analytics', 'Cloud & DevOps', 'Professional Skills', 'Development']
 
 const categoryIcons = {
   'AI/ML': '🤖',
   'Data Analytics': '📊',
   'Cloud & DevOps': '☁️',
   'Professional Skills': '🎯',
+  'Development': '💻',
   'Other': '📜',
 }
 
