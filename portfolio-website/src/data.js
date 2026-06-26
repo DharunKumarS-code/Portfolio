@@ -49,6 +49,16 @@ export const certificates = [
       'https://drive.google.com/file/d/1ed1dW9jTkcRvXbQj5NVYlW0q4Uc6cyHI/view?usp=sharing',
     color: 'from-rose-500 to-pink-600',
   },
+  {
+    id: 6,
+    title: 'Software Engineering Job Simulation',
+    issuer: 'Tom Brunskill',
+    date: '2025',
+    category: 'Development',
+    driveLink:
+      'https://drive.google.com/file/d/1bTqZpWwB0MyasXMnYCzpJpOIbEmFQgJ0/view?usp=sharing',
+    color: 'from-violet-500 to-indigo-600',
+  },
 ];
 
 export const projects = [
@@ -60,7 +70,7 @@ export const projects = [
     features: ['Upload multiple PDFs', 'Semantic candidate matching', 'Auto skill & experience extraction'],
     category: 'AI/ML',
     featured: true,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code/rag-chatbot',
     color: 'from-indigo-500 to-purple-600',
   },
   {
@@ -71,7 +81,7 @@ export const projects = [
     features: ['KPI tracking (revenue, growth)', 'Region & time-based analysis', 'Business decision insights'],
     category: 'Data Analytics',
     featured: true,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code/Retail-Sales-Performance-Analysis',
     color: 'from-emerald-500 to-teal-600',
   },
   {
@@ -82,7 +92,7 @@ export const projects = [
     features: ['Predictive health analytics', 'Data-driven diagnosis support', 'Efficiency optimization'],
     category: 'AI/ML',
     featured: false,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code/MiniProject',
     color: 'from-rose-500 to-pink-600',
   },
   {
@@ -93,19 +103,8 @@ export const projects = [
     features: ['Project & task tracking', 'Version control integration', 'Team collaboration'],
     category: 'Software Dev',
     featured: false,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code/Task-Management',
     color: 'from-amber-500 to-orange-600',
-  },
-  {
-    id: 5,
-    title: 'Kem — Action Item Generator',
-    description: 'Concept product that transforms unstructured meeting notes, emails, and chats into structured, actionable tasks using NLP.',
-    tech: ['Python', 'NLP', 'LangChain', 'Streamlit'],
-    features: ['Meeting notes → tasks', 'Email & chat parsing', 'Actionable output generation'],
-    category: 'AI/ML',
-    featured: false,
-    github: 'https://github.com/dharunkumar',
-    color: 'from-sky-500 to-blue-600',
   },
 ]
 
@@ -114,10 +113,17 @@ export const skills = [
   { category: 'AI / ML', items: ['NLP', 'RAG Pipelines', 'Embeddings', 'LangChain', 'FAISS'] },
   { category: 'Data Tools', items: ['Power BI', 'Pandas', 'Scikit-learn', 'Excel'] },
   { category: 'Dev Tools', items: ['Git', 'GitHub', 'Streamlit', 'VS Code'] },
+  { category: 'Databases', items: ['MongoDB'] },
   { category: 'Concepts', items: ['Data Structures', 'Analytics', 'CI/CD Basics', 'OOP'] },
 ]
 
 export const experience = [
+  {
+    title: 'Full Stack Developer Intern — Thiranex',
+    desc: 'Worked as a Full Stack Developer Intern at Thiranex from April 27, 2026 to May 26, 2026, gaining hands-on experience in end-to-end web development.',
+    icon: '🏢',
+    link: 'https://drive.google.com/file/d/1u84u_vkhP_Cbl5bhnzoTSuHCa5feUYiC/view?usp=drive_link',
+  },
   {
     title: 'AI & RAG Pipeline Development',
     desc: 'Built production-ready RAG systems using LangChain, FAISS vector stores, and HuggingFace embeddings with Groq LLaMA 3.1 inference.',
