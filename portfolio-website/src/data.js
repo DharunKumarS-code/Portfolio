@@ -70,7 +70,7 @@ export const projects = [
     features: ['Upload multiple PDFs', 'Semantic candidate matching', 'Auto skill & experience extraction'],
     category: 'AI/ML',
     featured: true,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code',
     color: 'from-indigo-500 to-purple-600',
   },
   {
@@ -81,7 +81,7 @@ export const projects = [
     features: ['KPI tracking (revenue, growth)', 'Region & time-based analysis', 'Business decision insights'],
     category: 'Data Analytics',
     featured: true,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code',
     color: 'from-emerald-500 to-teal-600',
   },
   {
@@ -92,7 +92,7 @@ export const projects = [
     features: ['Predictive health analytics', 'Data-driven diagnosis support', 'Efficiency optimization'],
     category: 'AI/ML',
     featured: false,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code',
     color: 'from-rose-500 to-pink-600',
   },
   {
@@ -103,7 +103,7 @@ export const projects = [
     features: ['Project & task tracking', 'Version control integration', 'Team collaboration'],
     category: 'Software Dev',
     featured: false,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code',
     color: 'from-amber-500 to-orange-600',
   },
   {
@@ -114,7 +114,7 @@ export const projects = [
     features: ['Meeting notes → tasks', 'Email & chat parsing', 'Actionable output generation'],
     category: 'AI/ML',
     featured: false,
-    github: 'https://github.com/dharunkumar',
+    github: 'https://github.com/DharunKumarS-code',
     color: 'from-sky-500 to-blue-600',
   },
 ]
