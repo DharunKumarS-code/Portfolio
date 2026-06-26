@@ -70,7 +70,7 @@ export const projects = [
     features: ['Upload multiple PDFs', 'Semantic candidate matching', 'Auto skill & experience extraction'],
     category: 'AI/ML',
     featured: true,
-    github: 'https://github.com/DharunKumarS-code',
+    github: 'https://github.com/DharunKumarS-code/rag-chatbot',
     color: 'from-indigo-500 to-purple-600',
   },
   {
@@ -81,7 +81,7 @@ export const projects = [
     features: ['KPI tracking (revenue, growth)', 'Region & time-based analysis', 'Business decision insights'],
     category: 'Data Analytics',
     featured: true,
-    github: 'https://github.com/DharunKumarS-code',
+    github: 'https://github.com/DharunKumarS-code/Retail-Sales-Performance-Analysis',
     color: 'from-emerald-500 to-teal-600',
   },
   {
@@ -92,7 +92,7 @@ export const projects = [
     features: ['Predictive health analytics', 'Data-driven diagnosis support', 'Efficiency optimization'],
     category: 'AI/ML',
     featured: false,
-    github: 'https://github.com/DharunKumarS-code',
+    github: 'https://github.com/DharunKumarS-code/MiniProject',
     color: 'from-rose-500 to-pink-600',
   },
   {
@@ -103,19 +103,8 @@ export const projects = [
     features: ['Project & task tracking', 'Version control integration', 'Team collaboration'],
     category: 'Software Dev',
     featured: false,
-    github: 'https://github.com/DharunKumarS-code',
+    github: 'https://github.com/DharunKumarS-code/Task-Management',
     color: 'from-amber-500 to-orange-600',
-  },
-  {
-    id: 5,
-    title: 'Kem — Action Item Generator',
-    description: 'Concept product that transforms unstructured meeting notes, emails, and chats into structured, actionable tasks using NLP.',
-    tech: ['Python', 'NLP', 'LangChain', 'Streamlit'],
-    features: ['Meeting notes → tasks', 'Email & chat parsing', 'Actionable output generation'],
-    category: 'AI/ML',
-    featured: false,
-    github: 'https://github.com/DharunKumarS-code',
-    color: 'from-sky-500 to-blue-600',
   },
 ]
 
