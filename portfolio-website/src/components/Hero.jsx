@@ -126,7 +126,7 @@ export default function Hero() {
           <a href="#contact" className="btn-outline">
             Get In Touch
           </a>
-          <a href="https://drive.google.com/file/d/1vl6BEhEU8iS9jXYiaOpBJUkydtBUjHlL/view?usp=sharing" download className="btn-outline flex items-center gap-2">
+          <a href="https://drive.google.com/file/d/1L5wJqGGV-p30SEbZ7zgKj3hOGkRmj3At/view?usp=drive_link" download className="btn-outline flex items-center gap-2">
             <Download size={18} /> Resume
           </a>
         </motion.div>
