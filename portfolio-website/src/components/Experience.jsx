@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react'
 import { experience } from '../data'
 
 export default function Experience() {
@@ -8,12 +9,18 @@ export default function Experience() {
         <p className="text-center text-gray-600 dark:text-gray-400 mb-16 reveal">Hands-on expertise across domains</p>
 
         <div className="grid sm:grid-cols-2 gap-6 stagger">
-          {experience.map(({ title, desc, icon }) => (
+          {experience.map(({ title, desc, icon, link }) => (
             <div key={title} className="card p-6 flex gap-4 reveal hover:-translate-y-1">
               <div className="text-3xl flex-shrink-0">{icon}</div>
-              <div>
+              <div className="flex-1">
                 <h3 className="text-lg font-semibold mb-2">{title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
+                {link && (
+                  <a href={link} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-3 text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-medium">
+                    View Internship Letter <ExternalLink size={12} />
+                  </a>
+                )}
               </div>
             </div>
           ))}

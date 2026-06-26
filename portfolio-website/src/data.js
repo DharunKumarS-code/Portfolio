@@ -130,6 +130,12 @@ export const skills = [
 
 export const experience = [
   {
+    title: 'Full Stack Developer Intern — Thiranex',
+    desc: 'Worked as a Full Stack Developer Intern at Thiranex from April 27, 2026 to May 26, 2026, gaining hands-on experience in end-to-end web development.',
+    icon: '🏢',
+    link: 'https://drive.google.com/file/d/1u84u_vkhP_Cbl5bhnzoTSuHCa5feUYiC/view?usp=drive_link',
+  },
+  {
     title: 'AI & RAG Pipeline Development',
     desc: 'Built production-ready RAG systems using LangChain, FAISS vector stores, and HuggingFace embeddings with Groq LLaMA 3.1 inference.',
     icon: '🤖',
