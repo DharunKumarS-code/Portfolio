@@ -8,7 +8,6 @@ import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Certificates from './components/Certificates'
 import Footer from './components/Footer'
-import { useScrollReveal } from './hooks/useScrollReveal'
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -23,10 +22,8 @@ export default function App() {
     localStorage.setItem('theme', darkMode ? 'dark' : 'light')
   }, [darkMode])
 
-  useScrollReveal()
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <main>
         <Hero />
