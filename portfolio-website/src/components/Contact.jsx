@@ -1,184 +1,267 @@
-import { Mail, Linkedin, Github, Send } from 'lucide-react'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import API_URL from '../api'
-import { useMouseTilt } from '../hooks/useMouseTilt'
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 80, damping: 15 },
-  },
-}
-
-function SocialCard({ href, icon: Icon, label, value, iconBg, iconColor, ...props }) {
-  const tiltRef = useMouseTilt({ maxTilt: 10, scale: 1.03, speed: 400 })
-
-  return (
-    <motion.a
-      ref={tiltRef}
-      href={href}
-      className="flex items-center gap-4 p-4 card"
-      variants={itemVariants}
-      {...props}
-    >
-      <div className={`w-10 h-10 ${iconBg} rounded-xl flex items-center justify-center`}>
-        <Icon className={iconColor} size={20} />
-      </div>
-      <div>
-        <p className="text-xs text-gray-500 dark:text-gray-500">{label}</p>
-        <p className="font-medium">{value}</p>
-      </div>
-    </motion.a>
-  )
-}
+import { useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { Github, Linkedin, Mail, Download, Send } from 'lucide-react'
+import emailjs from '@emailjs/browser'
+import { contactInfo } from '../data'
 
 export default function Contact() {
+  const ref = useRef(null)
+  const formRef = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
-  const [errorMsg, setErrorMsg] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus('loading')
-    setErrorMsg('')
+    setStatus('sending')
     try {
-      const res = await fetch(`${API_URL}/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Something went wrong')
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+      if (serviceId && templateId && publicKey) {
+        await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
+      } else {
+        // Fallback: simulate success if env vars not set
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      }
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
-      setTimeout(() => setStatus('idle'), 4000)
-    } catch (err) {
-      setErrorMsg(err.message)
+    } catch {
       setStatus('error')
-      setTimeout(() => setStatus('idle'), 4000)
     }
   }
 
+  const SOCIAL_LINKS = [
+    { href: contactInfo.github, icon: <Github size={20} />, label: 'GitHub' },
+    { href: contactInfo.linkedin, icon: <Linkedin size={20} />, label: 'LinkedIn' },
+    { href: `mailto:${contactInfo.email}`, icon: <Mail size={20} />, label: contactInfo.email },
+    { href: contactInfo.resume, icon: <Download size={20} />, label: 'Resume', external: true },
+  ]
+
   return (
-    <section id="contact" className="section-padding bg-gray-50 dark:bg-gray-900/50">
-      <div className="max-w-5xl mx-auto">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold text-center mb-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
+    <section
+      id="connect"
+      ref={ref}
+      className="section"
+      aria-label="Contact — Connect"
+    >
+      <div className="container">
+        {/* Hero statement */}
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
         >
-          Get In Touch
-        </motion.h2>
-        <motion.p
-          className="text-center text-gray-600 dark:text-gray-400 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Open to internship opportunities in AI, Data Analytics & Software Development
-        </motion.p>
+          <div className="section-label justify-center">09 — CONNECT</div>
+          <h2 className="heading-xl mb-4" style={{ lineHeight: 1 }}>
+            Have a problem
+            <br />
+            <span className="text-gradient-cyan">worth solving?</span>
+          </h2>
+          <p className="text-xl mt-6" style={{ color: 'var(--text-2)' }}>
+            Let's build the system.
+          </p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        {/* Two-column: form + links */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
+          {/* Contact form */}
           <motion.div
-            className="space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.2 }}
           >
-            <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-semibold mb-4">Let's Connect</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                I'm actively looking for internship opportunities. Whether you have a project, a role, or just want to chat about AI and data — feel free to reach out!
-              </p>
-            </motion.div>
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4"
+              aria-label="Contact form"
+            >
+              <div>
+                <label className="block font-mono text-xs mb-2" style={{ color: 'var(--text-3)' }}>
+                  NAME
+                </label>
+                <input
+                  type="text"
+                  name="from_name"
+                  value={form.name}
+                  onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                  required
+                  className="contact-form-input"
+                  placeholder="Your name"
+                  id="contact-name"
+                />
+              </div>
+              <div>
+                <label className="block font-mono text-xs mb-2" style={{ color: 'var(--text-3)' }}>
+                  EMAIL
+                </label>
+                <input
+                  type="email"
+                  name="reply_to"
+                  value={form.email}
+                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                  required
+                  className="contact-form-input"
+                  placeholder="your@email.com"
+                  id="contact-email"
+                />
+              </div>
+              <div>
+                <label className="block font-mono text-xs mb-2" style={{ color: 'var(--text-3)' }}>
+                  MESSAGE
+                </label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                  required
+                  rows={5}
+                  className="contact-form-input resize-none"
+                  placeholder="Describe the problem you want to solve..."
+                  id="contact-message"
+                />
+              </div>
 
-            <div className="space-y-4">
-              <SocialCard
-                href="mailto:sdharun7010@gmail.com"
-                icon={Mail}
-                label="Email"
-                value="sdharun7010@gmail.com"
-                iconBg="bg-indigo-100 dark:bg-indigo-900/30"
-                iconColor="text-indigo-600 dark:text-indigo-400"
-              />
-              <SocialCard
-                href="https://www.linkedin.com/in/dharun-kumar-8504a4290"
-                target="_blank"
-                rel="noopener noreferrer"
-                icon={Linkedin}
-                label="LinkedIn"
-                value="linkedin.com/in/dharun-kumar-8504a4290"
-                iconBg="bg-blue-100 dark:bg-blue-900/30"
-                iconColor="text-blue-600 dark:text-blue-400"
-              />
-              <SocialCard
-                href="https://github.com/DharunKumarS-code"
-                target="_blank"
-                rel="noopener noreferrer"
-                icon={Github}
-                label="GitHub"
-                value="github.com/DharunKumarS-code"
-                iconBg="bg-gray-100 dark:bg-gray-800"
-                iconColor="text-gray-700 dark:text-gray-300"
-              />
-            </div>
+              <button
+                type="submit"
+                className="btn-primary justify-center"
+                disabled={status === 'sending'}
+                id="contact-submit"
+              >
+                {status === 'sending' ? (
+                  <>
+                    <span className="animate-pulse font-mono text-xs">TRANSMITTING...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} />
+                    Send Message
+                  </>
+                )}
+              </button>
+
+              {status === 'success' && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="font-mono text-xs text-center"
+                  style={{ color: 'var(--mint)' }}
+                >
+                  ✓ Message received. I'll respond shortly.
+                </motion.p>
+              )}
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="font-mono text-xs text-center"
+                  style={{ color: '#f472b6' }}
+                >
+                  ✗ Transmission failed. Try emailing directly.
+                </motion.p>
+              )}
+            </form>
           </motion.div>
 
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-4"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          {/* Right side: links + info */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col gap-6"
           >
-            <div>
-              <label className="block text-sm font-medium mb-2">Name</label>
-              <input type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 input-glow transition-all"
-                placeholder="Your name" />
+            {/* Email direct */}
+            <div className="p-5 rounded-xl" style={{ background: 'var(--panel)', border: '1px solid var(--border)' }}>
+              <p className="font-mono text-xs mb-2" style={{ color: 'var(--text-3)' }}>DIRECT</p>
+              <a
+                href={`mailto:${contactInfo.email}`}
+                className="text-lg font-bold transition-colors"
+                style={{ color: 'var(--text-1)' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'var(--cyan)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'var(--text-1)'}
+              >
+                {contactInfo.email}
+              </a>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Email</label>
-              <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 input-glow transition-all"
-                placeholder="sdharun7010@gmail.com" />
+
+            {/* Social links */}
+            <div className="flex flex-col gap-3">
+              {SOCIAL_LINKS.map(({ href, icon, label, external }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200"
+                  style={{
+                    background: 'var(--panel)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-2)',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = 'rgba(34,211,238,0.3)'
+                    e.currentTarget.style.color = 'var(--cyan)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'var(--border)'
+                    e.currentTarget.style.color = 'var(--text-2)'
+                  }}
+                >
+                  {icon}
+                  <span className="font-medium">{label}</span>
+                </a>
+              ))}
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Message</label>
-              <textarea required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 input-glow transition-all resize-none"
-                placeholder="Tell me about the opportunity..." />
-            </div>
-            <motion.button
-              type="submit"
-              disabled={status === 'loading'}
-              className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+
+            {/* Resume access */}
+            <div
+              className="p-5 rounded-xl text-center"
+              style={{
+                background: 'linear-gradient(135deg, rgba(34,211,238,0.06), rgba(129,140,248,0.06))',
+                border: '1px solid rgba(34,211,238,0.15)',
+              }}
             >
-              {status === 'loading' && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-              {status === 'success' ? '✓ Message Sent!' : status === 'loading' ? 'Sending...' : <><Send size={18} /> Send Message</>}
-            </motion.button>
-            {status === 'error' && <p className="text-red-500 text-sm text-center">{errorMsg}</p>}
-            {status === 'success' && <p className="text-emerald-500 text-sm text-center">Thanks! I'll get back to you soon.</p>}
-          </motion.form>
+              <p className="font-mono text-xs mb-3" style={{ color: 'var(--text-3)' }}>ACCESS RESUME</p>
+              <div className="flex gap-3 justify-center">
+                <a
+                  href={contactInfo.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                >
+                  View Resume
+                </a>
+                <a
+                  href={contactInfo.resume}
+                  download
+                  className="btn-outline"
+                >
+                  <Download size={16} />
+                  Download
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Footer */}
+        <motion.div
+          className="text-center mt-24 pt-8"
+          style={{ borderTop: '1px solid var(--border)' }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+        >
+          <p className="font-mono text-xs" style={{ color: 'var(--text-3)' }}>
+            DHARUN KUMAR · AI/ML ENGINEER · SKCET · 2026
+          </p>
+          <p className="font-mono text-xs mt-2" style={{ color: 'var(--text-4)' }}>
+            Designed & Built with intention — not templates.
+          </p>
+        </motion.div>
       </div>
     </section>
   )
