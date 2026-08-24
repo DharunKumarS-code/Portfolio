@@ -59,6 +59,15 @@ export const certificates = [
       'https://drive.google.com/file/d/1bTqZpWwB0MyasXMnYCzpJpOIbEmFQgJ0/view?usp=sharing',
     color: 'from-violet-500 to-indigo-600',
   },
+  {
+    id: 7,
+    title: 'Data Analyst with ML Essentials',
+    issuer: 'iamneo',
+    date: '2026',
+    category: 'Data Analytics',
+    driveLink: '#',
+    color: 'from-sky-500 to-blue-600',
+  },
 ];
 
 export const projects = [
