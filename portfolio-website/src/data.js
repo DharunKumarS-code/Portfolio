@@ -65,7 +65,7 @@ export const certificates = [
     issuer: 'iamneo',
     date: '2026',
     category: 'Data Analytics',
-    driveLink: '#',
+    driveLink: 'https://drive.google.com/file/d/1e57BF5iy4VSC-hX8rZ-lXrB6ejtgPv81/view?usp=sharing',
     color: 'from-sky-500 to-blue-600',
   },
 ];
