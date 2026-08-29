@@ -1,98 +1,182 @@
-import { motion } from 'framer-motion'
-import { GraduationCap, Target, Lightbulb } from 'lucide-react'
-import { useMouseTilt } from '../hooks/useMouseTilt'
+import { useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 80, damping: 15 },
-  },
-}
-
-function AboutCard({ icon: Icon, title, description, iconBg, iconColor }) {
-  const tiltRef = useMouseTilt({ maxTilt: 12, scale: 1.03, speed: 400 })
-
-  return (
-    <motion.div
-      ref={tiltRef}
-      className="card p-8 text-center glow-border"
-      variants={itemVariants}
-    >
-      <div className={`w-16 h-16 ${iconBg} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
-        <Icon className={iconColor} size={32} />
-      </div>
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-gray-600 dark:text-gray-400">{description}</p>
-    </motion.div>
-  )
-}
+const META_TAGS = ['CS STUDENT', 'SKCET', 'AI/ML', 'DATA', 'NLP', 'RAG', 'BUILDER', '2026']
 
 export default function About() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const [hoveredTag, setHoveredTag] = useState(null)
+
+  const stagger = {
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+  }
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  }
+
   return (
-    <section id="about" className="section-padding bg-gray-50 dark:bg-gray-900/50">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-        >
-          About Me
-        </motion.h2>
-
+    <section
+      id="about"
+      ref={ref}
+      className="section"
+      aria-label="About — Origin"
+      style={{ background: 'var(--deep)' }}
+    >
+      <div className="container">
         <motion.div
-          className="grid md:grid-cols-3 gap-8"
-          variants={containerVariants}
+          variants={stagger}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
+          animate={inView ? 'visible' : 'hidden'}
+          className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center"
         >
-          <AboutCard
-            icon={GraduationCap}
-            title="Education"
-            description="Computer Science Student at Sri Krishna College of Engineering and Technology"
-            iconBg="bg-indigo-100 dark:bg-indigo-900/30"
-            iconColor="text-indigo-600 dark:text-indigo-400"
-          />
-          <AboutCard
-            icon={Target}
-            title="Interests"
-            description="AI, Data Analytics, Software Development, and Machine Learning"
-            iconBg="bg-purple-100 dark:bg-purple-900/30"
-            iconColor="text-purple-600 dark:text-purple-400"
-          />
-          <AboutCard
-            icon={Lightbulb}
-            title="Mission"
-            description="Solving real-world problems through innovative technology solutions"
-            iconBg="bg-emerald-100 dark:bg-emerald-900/30"
-            iconColor="text-emerald-600 dark:text-emerald-400"
-          />
-        </motion.div>
+          {/* LEFT: Identity card with profile photo */}
+          <motion.div variants={fadeUp} className="relative flex justify-center lg:justify-start">
+            {/* 3D layered card effect */}
+            <div className="relative w-72 md:w-80">
+              {/* Background layers */}
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background: 'var(--panel)',
+                  border: '1px solid rgba(129,140,248,0.2)',
+                  transform: 'translate(12px, 12px)',
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background: 'var(--panel)',
+                  border: '1px solid rgba(34,211,238,0.15)',
+                  transform: 'translate(6px, 6px)',
+                }}
+              />
 
-        <motion.div
-          className="mt-16 card p-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
-            I'm a Computer Science student with a strong passion for building intelligent systems that create real impact. 
-            My expertise spans across AI/ML, data analytics, and full-stack development. I love transforming complex problems 
-            into elegant, scalable solutions using cutting-edge technologies like RAG pipelines, NLP, and interactive dashboards.
-          </p>
+              {/* Main card */}
+              <div
+                className="relative rounded-2xl overflow-hidden"
+                style={{ border: '1px solid var(--border-bright)' }}
+              >
+                {/* Photo */}
+                <div className="relative h-64 overflow-hidden" style={{ background: 'var(--panel)' }}>
+                  <img
+                    src="/profile.jpg"
+                    alt="Dharun Kumar"
+                    className="w-full h-full object-cover object-top"
+                  />
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: 'linear-gradient(to bottom, transparent 50%, var(--deep) 100%)',
+                    }}
+                  />
+                </div>
+
+                {/* Card body */}
+                <div className="p-5" style={{ background: 'var(--panel)' }}>
+                  <p className="font-mono text-xs mb-1" style={{ color: 'var(--cyan)' }}>
+                    IDENTITY.CARD
+                  </p>
+                  <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--text-1)' }}>
+                    Dharun Kumar
+                  </h2>
+                  <p className="text-sm mb-4" style={{ color: 'var(--text-2)' }}>
+                    AI/ML Engineer · Software Developer
+                  </p>
+
+                  {/* Hoverable metadata tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {META_TAGS.map(tag => (
+                      <span
+                        key={tag}
+                        onMouseEnter={() => setHoveredTag(tag)}
+                        onMouseLeave={() => setHoveredTag(null)}
+                        className="font-mono text-xs px-2 py-1 rounded cursor-default transition-all duration-200"
+                        style={{
+                          background: hoveredTag === tag ? 'rgba(34,211,238,0.12)' : 'rgba(34,211,238,0.05)',
+                          border: '1px solid',
+                          borderColor: hoveredTag === tag ? 'rgba(34,211,238,0.4)' : 'rgba(34,211,238,0.1)',
+                          color: hoveredTag === tag ? 'var(--cyan)' : 'var(--text-3)',
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating badge */}
+              <motion.div
+                className="absolute -top-4 -right-4 font-mono text-xs px-3 py-2 rounded-xl"
+                style={{
+                  background: 'rgba(34,211,238,0.1)',
+                  border: '1px solid rgba(34,211,238,0.3)',
+                  color: 'var(--cyan)',
+                }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                ONLINE ✦
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* RIGHT: Story content */}
+          <div className="flex flex-col gap-8">
+            <motion.div variants={fadeUp}>
+              <div className="section-label">02 — ORIGIN</div>
+              <h2 className="heading-lg" style={{ color: 'var(--text-1)' }}>
+                Who I Am
+              </h2>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="flex flex-col gap-5">
+              <p className="text-lg leading-relaxed" style={{ color: 'var(--text-2)' }}>
+                I'm <strong style={{ color: 'var(--text-1)' }}>Dharun Kumar</strong>, a Computer Science student at SKCET
+                (graduating 2026), specializing in building intelligent systems at the intersection of
+                AI, data, and software engineering.
+              </p>
+              <p className="leading-relaxed" style={{ color: 'var(--text-2)' }}>
+                My approach is engineering-first: every system I build starts with a well-defined problem,
+                a structured approach, and ends with something that genuinely works in the real world.
+                I'm drawn to AI because it transforms raw data into decisions — and decisions create impact.
+              </p>
+              <p className="leading-relaxed" style={{ color: 'var(--text-2)' }}>
+                Currently focused on <span style={{ color: 'var(--cyan)' }}>RAG pipelines</span>,{' '}
+                <span style={{ color: 'var(--electric)' }}>NLP systems</span>, and{' '}
+                <span style={{ color: 'var(--mint)' }}>data analytics</span> —
+                bridging the gap between research and production.
+              </p>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div variants={fadeUp} className="grid grid-cols-3 gap-4">
+              {[
+                { num: '4+', label: 'Projects Built', color: 'var(--cyan)' },
+                { num: '7', label: 'Certifications', color: 'var(--electric)' },
+                { num: '1', label: 'Internship', color: 'var(--mint)' },
+              ].map(({ num, label, color }) => (
+                <div
+                  key={label}
+                  className="flex flex-col gap-1 p-4 rounded-xl text-center"
+                  style={{
+                    background: 'var(--panel)',
+                    border: '1px solid var(--border)',
+                  }}
+                >
+                  <span className="text-2xl font-bold font-mono" style={{ color }}>
+                    {num}
+                  </span>
+                  <span className="text-xs" style={{ color: 'var(--text-3)' }}>
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
