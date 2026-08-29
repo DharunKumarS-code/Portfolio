@@ -85,7 +85,7 @@ export const projects = [
     category: 'AI/ML',
     featured: true,
     github: 'https://github.com/DharunKumarS-code/rag-chatbot',
-    demo: null,
+    demo: 'https://rag-chatbot-mjuv6w8amagwrhzfrjdxcj.streamlit.app/',
     color: 'from-indigo-500 to-purple-600',
     accent: '#818cf8',
     pipelineType: 'rag',

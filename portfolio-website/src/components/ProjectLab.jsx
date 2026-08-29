@@ -271,18 +271,34 @@ export default function ProjectLab() {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid var(--border)' }}>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 font-mono text-xs transition-colors"
-                    style={{ color: 'var(--text-3)' }}
-                    onClick={e => e.stopPropagation()}
-                    onMouseEnter={e => e.currentTarget.style.color = 'var(--cyan)'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
-                  >
-                    <Github size={14} /> GitHub
-                  </a>
+                  <div className="flex items-center gap-3">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 font-mono text-xs transition-colors"
+                      style={{ color: 'var(--text-3)' }}
+                      onClick={e => e.stopPropagation()}
+                      onMouseEnter={e => e.currentTarget.style.color = 'var(--cyan)'}
+                      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
+                    >
+                      <Github size={14} /> GitHub
+                    </a>
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 font-mono text-xs transition-colors"
+                        style={{ color: 'var(--cyan)' }}
+                        onClick={e => e.stopPropagation()}
+                        onMouseEnter={e => e.currentTarget.style.color = '#38bdf8'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'var(--cyan)'}
+                      >
+                        <ExternalLink size={14} /> Live Demo
+                      </a>
+                    )}
+                  </div>
                   <span
                     className="font-mono text-xs flex items-center gap-1"
                     style={{ color: 'var(--cyan)' }}
