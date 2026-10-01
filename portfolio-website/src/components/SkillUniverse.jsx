@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useLayoutEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { skills } from '../data'
 
@@ -11,46 +11,153 @@ const COLOR_MAP = {
   'Concepts': '#a78bfa',
 }
 
+// Fixed, deterministic slot assignment — never random coordinates.
+const SLOT_MAP = {
+  'AI / ML': 'aiml',
+  'Programming': 'prog',
+  'Data Tools': 'data',
+  'Databases': 'db',
+  'Concepts': 'concepts',
+  'Dev Tools': 'dev',
+}
+
+function CoreNode({ compact }) {
+  return (
+    <motion.div
+      className={`skill-core-circle ${compact ? 'skill-core-circle-sm' : ''}`}
+      animate={{
+        boxShadow: [
+          '0 0 30px rgba(34,211,238,0.15)',
+          '0 0 55px rgba(34,211,238,0.35)',
+          '0 0 30px rgba(34,211,238,0.15)',
+        ],
+      }}
+      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <span>DHARUN</span>
+      <span className="font-mono text-[9px] font-normal tracking-wider" style={{ color: 'var(--text-3)' }}>
+        CORE
+      </span>
+    </motion.div>
+  )
+}
+
+function SkillPill({ name, color, isHovered, onHover }) {
+  return (
+    <button
+      type="button"
+      className="skill-pill"
+      aria-label={name}
+      onMouseEnter={() => onHover(name)}
+      onMouseLeave={() => onHover(null)}
+      onFocus={() => onHover(name)}
+      onBlur={() => onHover(null)}
+      style={{
+        background: isHovered ? `${color}22` : 'var(--panel)',
+        borderColor: isHovered ? color : `${color}35`,
+        color: isHovered ? 'var(--text-1)' : color,
+        boxShadow: isHovered ? `0 0 16px ${color}40` : 'none',
+      }}
+    >
+      <span className="skill-pill-dot" style={{ background: color }} />
+      {name}
+    </button>
+  )
+}
+
+function SkillCluster({ cat, color, activeCategory, hoveredSkill, setHoveredSkill, slotClass, clusterRef, inView, delay }) {
+  const isDimmed = Boolean(activeCategory) && activeCategory !== cat.category
+
+  return (
+    <motion.div
+      ref={clusterRef}
+      className={`skill-cluster ${slotClass || ''}`}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: isDimmed ? 0.35 : 1, y: 0 } : {}}
+      transition={{ delay, duration: 0.5 }}
+      style={{
+        borderColor: activeCategory === cat.category ? color : 'var(--border)',
+        boxShadow: activeCategory === cat.category ? `0 0 24px ${color}22` : 'none',
+      }}
+    >
+      <div className="skill-cluster-heading" style={{ color }}>
+        <span>{cat.icon}</span>
+        <span>{cat.category.toUpperCase()}</span>
+      </div>
+      <div className="skill-cluster-pills">
+        {cat.items.map(item => (
+          <SkillPill
+            key={item}
+            name={item}
+            color={color}
+            isHovered={hoveredSkill === item}
+            onHover={setHoveredSkill}
+          />
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
 export default function SkillUniverse() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const [activeCategory, setActiveCategory] = useState(null)
 
-  // Flatten all skills with category info in structured order
-  const allSkills = skills.flatMap(cat =>
-    cat.items.map(item => ({
-      name: item,
-      category: cat.category,
-      color: COLOR_MAP[cat.category] || '#22d3ee',
-    }))
-  )
+  const mapRef = useRef(null)
+  const coreRef = useRef(null)
+  const clusterRefs = useRef({})
+  const [lines, setLines] = useState([])
 
-  const totalSkills = allSkills.length
+  // Measure the actual rendered positions of the core and each cluster so the
+  // connecting lines always land on real geometry — never guessed coordinates.
+  useLayoutEffect(() => {
+    function measure() {
+      const containerEl = mapRef.current
+      const coreEl = coreRef.current
+      if (!containerEl || !coreEl) return
 
-  // Calculate 2-ring staggered layout coordinates for perfect spacing and zero overlap
-  const nodeData = allSkills.map((skill, idx) => {
-    // Distribute angles evenly around 360 degrees, starting from top (-PI/2)
-    const angle = (idx / totalSkills) * Math.PI * 2 - Math.PI / 2
-    // Alternate between Inner Ring (155px) and Outer Ring (255px)
-    const radius = idx % 2 === 0 ? 155 : 255
-    const x = Math.cos(angle) * radius
-    const y = Math.sin(angle) * radius
+      const containerRect = containerEl.getBoundingClientRect()
+      // The desktop/tablet map is display:none on mobile — skip measuring then.
+      if (containerRect.width === 0 || containerRect.height === 0) {
+        setLines([])
+        return
+      }
 
-    return {
-      ...skill,
-      idx,
-      x,
-      y,
-      radius,
-      angle,
+      const coreRect = coreEl.getBoundingClientRect()
+      const coreCenter = {
+        x: coreRect.left + coreRect.width / 2 - containerRect.left,
+        y: coreRect.top + coreRect.height / 2 - containerRect.top,
+      }
+
+      const nextLines = skills
+        .map(cat => {
+          const el = clusterRefs.current[cat.category]
+          if (!el) return null
+          const r = el.getBoundingClientRect()
+          return {
+            category: cat.category,
+            x1: coreCenter.x,
+            y1: coreCenter.y,
+            x2: r.left + r.width / 2 - containerRect.left,
+            y2: r.top + r.height / 2 - containerRect.top,
+          }
+        })
+        .filter(Boolean)
+
+      setLines(nextLines)
     }
-  })
 
-  const isVisible = (skill) => {
-    if (!activeCategory) return true
-    return skill.category === activeCategory
-  }
+    measure()
+    const ro = new ResizeObserver(measure)
+    if (mapRef.current) ro.observe(mapRef.current)
+    window.addEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [])
 
   return (
     <section
@@ -112,134 +219,74 @@ export default function SkillUniverse() {
           ))}
         </motion.div>
 
-        {/* 2D Orbital Radar Map */}
-        <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden my-4">
-
-          {/* SVG Overlay: Central Orbital Rings & Radiant Connection Lines */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
-            <g transform="translate(50% 50%)">
-              {/* Inner Orbit Circle (155px) */}
-              <circle
-                r="155"
-                fill="none"
-                stroke="rgba(34,211,238,0.12)"
-                strokeWidth="1"
-                strokeDasharray="4 6"
-              />
-              {/* Outer Orbit Circle (255px) */}
-              <circle
-                r="255"
-                fill="none"
-                stroke="rgba(129,140,248,0.1)"
-                strokeWidth="1"
-                strokeDasharray="6 8"
-              />
-
-              {/* Radiant lines connecting center (0,0) to each node (x,y) */}
-              {nodeData.map(node => {
-                const active = isVisible(node)
-                const isHovered = hoveredSkill === node.name
-                return (
-                  <line
-                    key={`line-${node.name}-${node.idx}`}
-                    x1="0"
-                    y1="0"
-                    x2={node.x}
-                    y2={node.y}
-                    stroke={node.color}
-                    strokeWidth={isHovered ? 1.8 : 1}
-                    strokeOpacity={isHovered ? 0.8 : active ? (activeCategory ? 0.4 : 0.18) : 0.05}
-                    style={{ transition: 'all 0.3s ease' }}
-                  />
-                )
-              })}
-            </g>
+        {/* Desktop / tablet skill map — fixed grid slots, zero random positioning */}
+        <div className="skill-map" ref={mapRef}>
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
+            {lines.map(line => {
+              const isActiveCat = !activeCategory || activeCategory === line.category
+              const isHoveredCat = Boolean(
+                hoveredSkill && skills.find(c => c.category === line.category)?.items.includes(hoveredSkill)
+              )
+              return (
+                <line
+                  key={line.category}
+                  x1={line.x1}
+                  y1={line.y1}
+                  x2={line.x2}
+                  y2={line.y2}
+                  stroke={COLOR_MAP[line.category]}
+                  strokeWidth={isHoveredCat ? 1.8 : 1}
+                  strokeDasharray="4 6"
+                  strokeOpacity={isHoveredCat ? 0.7 : isActiveCat ? 0.3 : 0.08}
+                  style={{ transition: 'stroke-opacity 0.3s ease, stroke-width 0.3s ease' }}
+                />
+              )
+            })}
           </svg>
 
-          {/* Central DHARUN Node */}
-          <motion.div
-            className="absolute z-20 flex flex-col items-center justify-center rounded-full font-bold select-none cursor-pointer"
-            style={{
-              width: 86,
-              height: 86,
-              background: 'radial-gradient(circle, rgba(34,211,238,0.18), var(--panel))',
-              border: '2px solid rgba(34,211,238,0.5)',
-              color: 'var(--cyan)',
-              boxShadow: '0 0 40px rgba(34,211,238,0.25)',
-              fontFamily: 'Space Grotesk',
-              fontSize: '0.85rem',
-            }}
-            animate={{
-              boxShadow: [
-                '0 0 30px rgba(34,211,238,0.15)',
-                '0 0 55px rgba(34,211,238,0.35)',
-                '0 0 30px rgba(34,211,238,0.15)',
-              ],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <span>DHARUN</span>
-            <span className="font-mono text-[9px] font-normal tracking-wider" style={{ color: 'var(--text-3)' }}>
-              CORE
-            </span>
-          </motion.div>
+          <div className="skill-core" ref={coreRef}>
+            <div className="skill-core-ring ring-1" />
+            <div className="skill-core-ring ring-2" />
+            <CoreNode />
+          </div>
 
-          {/* Skill Node Pills */}
-          {nodeData.map(node => {
-            const active = isVisible(node)
-            const isHovered = hoveredSkill === node.name
+          {skills.map((cat, idx) => (
+            <SkillCluster
+              key={cat.category}
+              cat={cat}
+              color={COLOR_MAP[cat.category]}
+              activeCategory={activeCategory}
+              hoveredSkill={hoveredSkill}
+              setHoveredSkill={setHoveredSkill}
+              slotClass={`skill-slot-${SLOT_MAP[cat.category]}`}
+              clusterRef={el => { clusterRefs.current[cat.category] = el }}
+              inView={inView}
+              delay={0.1 + idx * 0.05}
+            />
+          ))}
+        </div>
 
-            return (
-              <motion.div
-                key={`node-${node.name}-${node.idx}`}
-                className="absolute flex items-center justify-center cursor-pointer select-none"
-                style={{
-                  left: `calc(50% + ${node.x}px)`,
-                  top: `calc(50% + ${node.y}px)`,
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: isHovered ? 30 : active ? 10 : 1,
-                  opacity: active ? 1 : 0.25,
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: active ? 1 : 0.25, scale: 1 }}
-                transition={{ delay: node.idx * 0.02, type: 'spring', stiffness: 120 }}
-                onMouseEnter={() => setHoveredSkill(node.name)}
-                onMouseLeave={() => setHoveredSkill(null)}
-                whileHover={{ scale: 1.12 }}
-              >
-                <div
-                  className="px-3.5 py-1.5 rounded-full font-mono text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5"
-                  style={{
-                    background: isHovered
-                      ? `${node.color}25`
-                      : active
-                      ? 'var(--panel)'
-                      : 'rgba(15,22,41,0.5)',
-                    border: `1px solid ${
-                      isHovered
-                        ? node.color
-                        : active
-                        ? `${node.color}40`
-                        : 'var(--border)'
-                    }`,
-                    color: isHovered ? 'var(--text-1)' : active ? node.color : 'var(--text-3)',
-                    boxShadow: isHovered ? `0 0 20px ${node.color}40` : 'none',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full inline-block"
-                    style={{ background: node.color }}
-                  />
-                  {node.name}
-                </div>
-              </motion.div>
-            )
-          })}
+        {/* Mobile — structured stacked clusters, no orbital layout */}
+        <div className="skill-map-mobile">
+          <div className="skill-core-mobile">
+            <CoreNode compact />
+          </div>
+          {skills.map((cat, idx) => (
+            <SkillCluster
+              key={cat.category}
+              cat={cat}
+              color={COLOR_MAP[cat.category]}
+              activeCategory={activeCategory}
+              hoveredSkill={hoveredSkill}
+              setHoveredSkill={setHoveredSkill}
+              inView={inView}
+              delay={0.1 + idx * 0.05}
+            />
+          ))}
         </div>
 
         {/* Hovered Skill Context Banner */}
-        <div className="text-center mt-2 h-8 flex items-center justify-center">
+        <div className="text-center mt-8 h-8 flex items-center justify-center">
           {hoveredSkill ? (
             <motion.p
               initial={{ opacity: 0, y: 5 }}
@@ -248,71 +295,14 @@ export default function SkillUniverse() {
               style={{ color: 'var(--cyan)' }}
             >
               {`> ${hoveredSkill} [${
-                allSkills.find(s => s.name === hoveredSkill)?.category || 'Skill'
+                skills.find(c => c.items.includes(hoveredSkill))?.category || 'Skill'
               }]`}
             </motion.p>
           ) : (
             <p className="font-mono text-xs" style={{ color: 'var(--text-3)' }}>
-              — Hover over any technology node to inspect details —
+              — Hover over any technology to inspect details —
             </p>
           )}
-        </div>
-
-        {/* Skill grid (categorized fallback list) */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10">
-          {skills.map((cat, idx) => (
-            <motion.div
-              key={cat.category}
-              className="p-4 rounded-xl transition-all duration-200"
-              style={{
-                background: 'var(--panel)',
-                border: `1px solid ${
-                  activeCategory === cat.category
-                    ? COLOR_MAP[cat.category]
-                    : 'var(--border)'
-                }`,
-                boxShadow:
-                  activeCategory === cat.category
-                    ? `0 0 20px ${COLOR_MAP[cat.category]}20`
-                    : 'none',
-              }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 + idx * 0.05 }}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <span>{cat.icon}</span>
-                <p
-                  className="font-mono text-xs font-bold tracking-wider"
-                  style={{ color: COLOR_MAP[cat.category] }}
-                >
-                  {cat.category.toUpperCase()}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {cat.items.map(item => (
-                  <span
-                    key={item}
-                    className="tech-pill cursor-pointer transition-transform hover:scale-105"
-                    style={{
-                      borderColor:
-                        hoveredSkill === item
-                          ? COLOR_MAP[cat.category]
-                          : undefined,
-                      color:
-                        hoveredSkill === item
-                          ? 'var(--text-1)'
-                          : COLOR_MAP[cat.category],
-                    }}
-                    onMouseEnter={() => setHoveredSkill(item)}
-                    onMouseLeave={() => setHoveredSkill(null)}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>
