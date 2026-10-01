@@ -5,16 +5,16 @@
 
 /* === FONTS === */
 :root {
-  /* Color Tokens — warm beach-sand / beige surfaces */
-  --void: #e8ddcc;
-  --deep: #ede3d2;
-  --panel: #f1e9dc;
-  --panel-2: #f7f3ec;
-  --border: rgba(99, 102, 241, 0.12);
-  --border-bright: rgba(34, 211, 238, 0.2);
+  /* Color Tokens — graphite / blue-grey premium dark surfaces */
+  --void: #0d1117;
+  --deep: #111821;
+  --panel: #151d26;
+  --panel-2: #19232e;
+  --border: #283442;
+  --border-bright: rgba(125, 211, 252, 0.2);
 
   /* Accents */
-  --cyan: #22d3ee;
+  --cyan: #7dd3fc;
   --cyan-dim: #0e7490;
   --violet: #818cf8;
   --violet-dim: #4338ca;
@@ -22,11 +22,11 @@
   --mint: #6ee7b7;
   --graphite: #1e293b;
 
-  /* Text — dark warm tones for contrast against the sandy surfaces */
-  --text-1: #2a2018;
-  --text-2: #5c4f3f;
-  --text-3: #8a7b68;
-  --text-4: #c2b59c;
+  /* Text — soft steel scale for contrast against the graphite surfaces */
+  --text-1: #f5f7fa;
+  --text-2: #a8b3c2;
+  --text-3: #718096;
+  --text-4: #4b5768;
 
   /* Spacing */
   --section-pad: clamp(60px, 10vw, 140px);
@@ -42,7 +42,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {
