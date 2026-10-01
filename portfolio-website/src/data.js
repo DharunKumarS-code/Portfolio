@@ -144,6 +144,42 @@ export const projects = [
     accent: '#fb923c',
     pipelineType: 'software',
   },
+  {
+    id: 5,
+    title: 'EstateVision AI',
+    problem: 'Real estate buyers and sellers lack instant, data-driven ways to estimate property prices, often relying on guesswork or outdated listings.',
+    solution: 'Built a full-stack ML application where a React frontend collects property details and a Flask REST API runs a Linear Regression model to return a real-time price prediction.',
+    architecture: 'React Form → REST API → Flask Backend → Feature Engineering (sqft_per_bhk) → Linear Regression Model → Predicted Price → React UI',
+    tech: ['React.js', 'Tailwind CSS', 'Python', 'Flask', 'Scikit-learn', 'Pandas', 'NumPy', 'REST API'],
+    features: ['Real-time property price prediction', 'Feature engineering (sqft_per_bhk)', 'REST API bridging React & Flask'],
+    result: 'Delivered an end-to-end ML web app where users get an instant, model-backed property price estimate from a simple form submission.',
+    learnings: 'Hands-on experience wiring a trained Scikit-learn model into a production REST API and consuming it from a responsive React frontend.',
+    category: 'AI/ML',
+    featured: true,
+    github: 'https://github.com/DharunKumarS-code/EstateVision-AI.git',
+    demo: 'https://estate-vision-ai-six.vercel.app/',
+    color: 'from-cyan-500 to-blue-600',
+    accent: '#22d3ee',
+    pipelineType: 'mlapp',
+  },
+  {
+    id: 6,
+    title: 'Weltnexus — 3D ULPIN & Vertical Property Mapping',
+    problem: 'Traditional land records represent property as flat 2D parcels, which cannot capture vertically stacked buildings, floors, and individual units for modern land administration.',
+    solution: 'Built a GovTech-oriented platform that extends 2D land parcels into a hierarchical 3D ULPIN model — Parcel → Building → Floor → Unit — with dashboards, GIS mapping, verification, and audit workflows.',
+    architecture: 'Land Parcel → Building → Floor → Unit/Property → 3D ULPIN Pipeline, visualized via Leaflet + 3D mapping, backed by Node.js/Express REST APIs and MongoDB, with Python/YOLOv8 concepts for floor & building segmentation.',
+    tech: ['React.js', 'Vite', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'Leaflet', 'CesiumJS/Three.js', 'Python', 'YOLOv8'],
+    features: ['3D ULPIN & vertical property hierarchy', 'Land parcel, building & floor management', 'Verification, audit logs & role-based users', '3D map & dataset/upload workflows'],
+    result: 'Delivered a working GovTech prototype demonstrating how land administration can move from flat 2D parcels to a structured, vertically-mapped digital property model.',
+    learnings: 'Deepened understanding of GIS visualization, hierarchical data modeling for land administration, and full-stack architecture spanning mapping, APIs, and a database.',
+    category: 'GovTech/GIS',
+    featured: true,
+    github: null,
+    demo: 'https://weltnexus-flax.vercel.app/',
+    color: 'from-violet-500 to-fuchsia-600',
+    accent: '#a78bfa',
+    pipelineType: 'govtech',
+  },
 ]
 
 export const skills = [
@@ -335,7 +371,7 @@ export const contactInfo = {
 export const aiKnowledgeBase = [
   {
     patterns: ['project', 'built', 'work', 'portfolio'],
-    response: "Dharun has built 4 main projects: (1) An AI Resume Screening Chatbot using RAG + LangChain + FAISS, (2) A Sales Performance Dashboard in Power BI, (3) A Healthcare AI Solution with Scikit-learn, and (4) A Task Management System in Java. The RAG chatbot is his most technically complex project.",
+    response: "Dharun has built 6 main projects: (1) An AI Resume Screening Chatbot using RAG + LangChain + FAISS, (2) A Sales Performance Dashboard in Power BI, (3) A Healthcare AI Solution with Scikit-learn, (4) A Task Management System in Java, (5) EstateVision AI — a full-stack ML app predicting property prices with React + Flask + Scikit-learn, and (6) Weltnexus — a GovTech 3D ULPIN and vertical property mapping platform. The RAG chatbot and EstateVision AI are his most technically complex ML projects.",
   },
   {
     patterns: ['skill', 'technology', 'tech', 'know', 'use'],

@@ -24,12 +24,23 @@ const PIPELINE_TYPES = {
     steps: ['Requirements', 'Design', 'Implement', 'Test', 'Deploy'],
     colors: ['#fb923c', '#22d3ee', '#818cf8', '#6ee7b7', '#a78bfa'],
   },
+  mlapp: {
+    label: 'ML APP PIPELINE',
+    steps: ['React Form', 'REST API', 'Flask', 'Linear Regression', 'Prediction'],
+    colors: ['#22d3ee', '#818cf8', '#a78bfa', '#6ee7b7', '#22d3ee'],
+  },
+  govtech: {
+    label: '3D ULPIN PIPELINE',
+    steps: ['Land Parcel', 'Building', 'Floor', 'Unit', 'ULPIN'],
+    colors: ['#a78bfa', '#818cf8', '#22d3ee', '#6ee7b7', '#a78bfa'],
+  },
 }
 
 const CATEGORY_COLORS = {
   'AI/ML': '#818cf8',
   'Data Analytics': '#6ee7b7',
   'Software Dev': '#fb923c',
+  'GovTech/GIS': '#a78bfa',
 }
 
 function Pipeline({ type }) {
@@ -150,21 +161,23 @@ function CaseStudyModal({ project, onClose }) {
           </div>
 
           {/* Links */}
-          <div className="flex gap-3 pt-2">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              <Github size={16} /> View Code
-            </a>
+          <div className="flex gap-3 pt-2 flex-wrap">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
+                <Github size={16} /> View Code
+              </a>
+            )}
             {project.demo && (
               <a
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline"
+                className={project.github ? 'btn-outline' : 'btn-primary'}
               >
                 <ExternalLink size={16} /> Live Demo
               </a>
@@ -272,18 +285,20 @@ export default function ProjectLab() {
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid var(--border)' }}>
                   <div className="flex items-center gap-3">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-mono text-xs transition-colors"
-                      style={{ color: 'var(--text-3)' }}
-                      onClick={e => e.stopPropagation()}
-                      onMouseEnter={e => e.currentTarget.style.color = 'var(--cyan)'}
-                      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
-                    >
-                      <Github size={14} /> GitHub
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 font-mono text-xs transition-colors"
+                        style={{ color: 'var(--text-3)' }}
+                        onClick={e => e.stopPropagation()}
+                        onMouseEnter={e => e.currentTarget.style.color = 'var(--cyan)'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
+                      >
+                        <Github size={14} /> GitHub
+                      </a>
+                    )}
                     {project.demo && (
                       <a
                         href={project.demo}
