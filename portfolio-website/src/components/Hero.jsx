@@ -180,7 +180,7 @@ export default function Hero() {
             Get In Touch
           </a>
           <a
-            href="https://drive.google.com/file/d/1L5wJqGGV-p30SEbZ7zgKj3hOGkRmj3At/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1pYotoq3bnLr87bwwjuOmPkW2uk3oR1_n/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"
