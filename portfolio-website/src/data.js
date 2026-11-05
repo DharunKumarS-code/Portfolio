@@ -365,7 +365,7 @@ export const contactInfo = {
   email: 'sdharun7010@gmail.com',
   github: 'https://github.com/DharunKumarS-code',
   linkedin: 'https://www.linkedin.com/in/dharun-kumar-8504a4290',
-  resume: 'https://drive.google.com/file/d/1L5wJqGGV-p30SEbZ7zgKj3hOGkRmj3At/view?usp=drive_link',
+  resume: 'https://drive.google.com/file/d/1pYotoq3bnLr87bwwjuOmPkW2uk3oR1_n/view?usp=drive_link',
 }
 
 export const aiKnowledgeBase = [
