@@ -4,6 +4,7 @@ import Loader from './components/Loader'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import About from './components/About'
+import WorkExperience from './components/WorkExperience'
 import EngineeringMindset from './components/EngineeringMindset'
 import SkillUniverse from './components/SkillUniverse'
 import ProjectLab from './components/ProjectLab'
@@ -53,6 +54,7 @@ export default function App() {
           <main>
             <Hero />
             <About />
+            <WorkExperience />
             <EngineeringMindset />
             <SkillUniverse />
             <ProjectLab />

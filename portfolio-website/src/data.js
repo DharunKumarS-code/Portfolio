@@ -311,6 +311,96 @@ export const experience = [
   },
 ]
 
+// Work Experience section (components/WorkExperience.jsx)
+export const workExperience = {
+  role: 'Software Developer Intern',
+  company: 'Synergy Maritime',
+  duration: 'October 2026 – November 2026',
+  type: 'Internship',
+  description:
+    'During my internship, I worked on maritime software development, AI integration, vessel-related applications, automation, and intelligent user interaction systems.',
+  // Focus areas taken from the internship description (domains, not specific libraries)
+  domains: [
+    'Maritime Software',
+    'AI Integration',
+    'Voice Recognition',
+    'Conversational AI',
+    'API Integration',
+    'Automation & Testing',
+  ],
+  workstreams: [
+    {
+      id: 'vessel',
+      icon: 'ship',
+      color: '#7dd3fc',
+      title: 'Synergy Vessel',
+      subtitle: 'Vessel Management & AI Intelligence',
+      summary: 'Worked on developing and enhancing maritime vessel-related software applications.',
+      contributions: [
+        'Developed and enhanced interactive vessel management interfaces.',
+        'Implemented AI-powered vessel image comparison and condition analysis.',
+        'Worked on vessel location intelligence and location-based features.',
+        'Integrated frontend components with backend APIs.',
+        'Improved application workflows and user experience.',
+      ],
+      tags: ['Vessel Management', 'Image Comparison', 'Location Intelligence', 'API Integration'],
+    },
+    {
+      id: 'voice',
+      icon: 'mic',
+      color: '#a78bfa',
+      title: 'Voice Recognition',
+      subtitle: 'Intelligent Interaction',
+      summary: 'Worked on voice recognition capabilities to enable voice-based interaction within the application.',
+      contributions: [
+        'Integrated voice recognition functionality.',
+        'Implemented voice-based interaction workflows.',
+        'Connected voice input with application functionality.',
+        'Improved accessibility and user interaction.',
+      ],
+      tags: ['Voice Recognition', 'Voice Interaction', 'Accessibility'],
+    },
+    {
+      id: 'chatbot',
+      icon: 'bot',
+      color: '#818cf8',
+      title: 'Personalized AI Chatbot',
+      subtitle: 'Context-Aware Conversations',
+      summary: 'Developed a personalized AI chatbot designed to provide intelligent and context-aware interactions.',
+      contributions: [
+        'Implemented personalized chatbot functionality.',
+        'Integrated AI-powered conversational capabilities.',
+        'Developed interactive chat workflows.',
+        'Enhanced user experience through intelligent responses and contextual interactions.',
+      ],
+      tags: ['Conversational AI', 'Chat Workflows', 'Personalization'],
+    },
+    {
+      id: 'automation',
+      icon: 'workflow',
+      color: '#6ee7b7',
+      title: 'Automation & Testing',
+      subtitle: 'Software Quality',
+      summary: 'Worked on application automation and software quality improvement.',
+      contributions: [
+        'Developed and integrated automation workflows.',
+        'Worked on application testing and debugging.',
+        'Integrated frontend and backend functionality.',
+        'Improved application reliability and workflows.',
+      ],
+      tags: ['Automation', 'Testing', 'Debugging'],
+    },
+  ],
+  // Internship certificate — set ONE of these when available:
+  //   image: '/certificates/synergy-maritime.jpg'  (file placed in portfolio-website/public/certificates/)
+  //   link:  'https://drive.google.com/file/d/<id>/view?usp=sharing'  (PDF or Drive link)
+  // While both are null, a "Certificate will be added soon" placeholder is shown.
+  certificate: {
+    image: null,
+    link: null,
+  },
+}
+
 export const research = [
   {
     id: 1,

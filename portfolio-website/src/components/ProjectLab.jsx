@@ -208,7 +208,7 @@ export default function ProjectLab() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
         >
-          <div className="section-label">05 — LAB</div>
+          <div className="section-label">06 — LAB</div>
           <h2 className="heading-lg" style={{ color: 'var(--text-1)' }}>
             AI <span className="text-gradient-cyan">Laboratory</span>
           </h2>

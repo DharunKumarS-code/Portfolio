@@ -20,7 +20,7 @@ export default function Research() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
         >
-          <div className="section-label">07 — RESEARCH</div>
+          <div className="section-label">08 — RESEARCH</div>
           <h2 className="heading-lg" style={{ color: 'var(--text-1)' }}>
             Experiments &{' '}
             <span className="text-gradient-cyan">Explorations</span>

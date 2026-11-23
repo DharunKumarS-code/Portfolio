@@ -35,7 +35,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
         >
-          <div className="section-label">06 — SYSTEMS</div>
+          <div className="section-label">07 — SYSTEMS</div>
           <h2 className="heading-lg" style={{ color: 'var(--text-1)' }}>
             Engineering{' '}
             <span className="text-gradient-cyan">Journey</span>

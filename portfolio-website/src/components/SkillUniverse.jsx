@@ -175,7 +175,7 @@ export default function SkillUniverse() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="section-label justify-center">04 — STACK</div>
+          <div className="section-label justify-center">05 — STACK</div>
           <h2 className="heading-lg" style={{ color: 'var(--text-1)' }}>
             Technology{' '}
             <span className="text-gradient-cyan">Ecosystem</span>
