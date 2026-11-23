@@ -242,23 +242,6 @@ export const skillNodes = [
 
 export const experience = [
   {
-    id: 1,
-    title: 'Full Stack Developer Intern',
-    org: 'Thiranex',
-    duration: 'Apr 27, 2026 – May 26, 2026',
-    type: 'internship',
-    icon: '🏢',
-    description: 'Worked as a Full Stack Developer Intern gaining hands-on experience in end-to-end web development.',
-    responsibilities: [
-      'Developed and maintained web application features',
-      'Collaborated with the development team on full-stack solutions',
-      'Applied software engineering best practices in a professional environment',
-    ],
-    tech: ['Web Development', 'Full Stack', 'Software Engineering'],
-    link: 'https://drive.google.com/file/d/1u84u_vkhP_Cbl5bhnzoTSuHCa5feUYiC/view?usp=drive_link',
-    featured: true,
-  },
-  {
     id: 2,
     title: 'AI & RAG Pipeline Development',
     org: 'Personal Projects',
@@ -481,7 +464,7 @@ export const aiKnowledgeBase = [
   },
   {
     patterns: ['experience', 'intern', 'job', 'work history'],
-    response: "Dharun completed a Full Stack Developer Internship at Thiranex (April–May 2026) and is pursuing his Computer Science degree at SKCET (2022–2026).",
+    response: "Dharun worked as a Software Developer Intern at Synergy Maritime (October–November 2026), contributing to maritime vessel software, AI-powered vessel image analysis, voice recognition, a personalized AI chatbot, and automation & testing. He is pursuing his Computer Science degree at SKCET (2022–2026).",
   },
   {
     patterns: ['certif', 'credential', 'course'],
