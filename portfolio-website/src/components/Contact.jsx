@@ -237,6 +237,8 @@ export default function Contact() {
                 <a
                   href={contactInfo.resume}
                   download
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-outline"
                 >
                   <Download size={16} />
