@@ -380,7 +380,7 @@ export const workExperience = {
   // While both are null, a "Certificate will be added soon" placeholder is shown.
   certificate: {
     image: null,
-    link: null,
+    link: 'https://drive.google.com/file/d/1tEET0tJl6w9M7NQ01_KWsCiQuHeLajqW/view?usp=sharing',
   },
 }
 
