@@ -26,7 +26,7 @@ export default function EngineeringMindset() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
             >
-              <div className="section-label">03 — THINK</div>
+              <div className="section-label">04 — THINK</div>
               <h2 className="heading-lg mb-6" style={{ color: 'var(--text-1)' }}>
                 How I<br />
                 <span className="text-gradient-cyan">Approach</span><br />

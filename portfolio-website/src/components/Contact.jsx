@@ -54,7 +54,7 @@ export default function Contact() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="section-label justify-center">09 — CONNECT</div>
+          <div className="section-label justify-center">10 — CONNECT</div>
           <h2 className="heading-xl mb-4" style={{ lineHeight: 1 }}>
             Have a problem
             <br />

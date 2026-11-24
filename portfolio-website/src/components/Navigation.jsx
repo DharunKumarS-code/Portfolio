@@ -4,13 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 const NAV_ITEMS = [
   { label: 'INTRO', href: '#hero', num: '01' },
   { label: 'ORIGIN', href: '#about', num: '02' },
-  { label: 'THINK', href: '#think', num: '03' },
-  { label: 'STACK', href: '#stack', num: '04' },
-  { label: 'LAB', href: '#lab', num: '05' },
-  { label: 'SYSTEMS', href: '#systems', num: '06' },
-  { label: 'RESEARCH', href: '#research', num: '07' },
-  { label: 'CREDENTIALS', href: '#credentials', num: '08' },
-  { label: 'CONNECT', href: '#connect', num: '09' },
+  { label: 'WORK', href: '#work', num: '03' },
+  { label: 'THINK', href: '#think', num: '04' },
+  { label: 'STACK', href: '#stack', num: '05' },
+  { label: 'LAB', href: '#lab', num: '06' },
+  { label: 'SYSTEMS', href: '#systems', num: '07' },
+  { label: 'RESEARCH', href: '#research', num: '08' },
+  { label: 'CREDENTIALS', href: '#credentials', num: '09' },
+  { label: 'CONNECT', href: '#connect', num: '10' },
 ]
 
 export default function Navigation() {
@@ -65,7 +66,7 @@ export default function Navigation() {
             borderRight: '1px solid var(--border)',
           }}
         >
-          {currentNum} / 09
+          {currentNum} / 10
         </span>
 
         {NAV_ITEMS.map(item => (
@@ -121,10 +122,10 @@ export default function Navigation() {
             aria-modal="true"
             aria-label="Mobile navigation"
           >
-            <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-col items-center gap-5 max-h-full overflow-y-auto py-8">
               {/* Section counter */}
               <p className="font-mono text-xs" style={{ color: 'var(--cyan)' }}>
-                {currentNum} / 09
+                {currentNum} / 10
               </p>
               {NAV_ITEMS.map((item, idx) => (
                 <motion.a
