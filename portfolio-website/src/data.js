@@ -327,6 +327,7 @@ export const workExperience = {
         'Improved application workflows and user experience.',
       ],
       tags: ['Vessel Management', 'Image Comparison', 'Location Intelligence', 'API Integration'],
+      repo: { name: 'Synergy-Vessel', url: 'https://github.com/DharunKumarS-code/Synergy-Vessel' },
     },
     {
       id: 'voice',
