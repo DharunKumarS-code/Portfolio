@@ -379,7 +379,7 @@ export const workExperience = {
   //   link:  'https://drive.google.com/file/d/<id>/view?usp=sharing'  (PDF or Drive link)
   // While both are null, a "Certificate will be added soon" placeholder is shown.
   certificate: {
-    image: null,
+    image: '/certificates/synergy-maritime.png',
     link: 'https://drive.google.com/file/d/1tEET0tJl6w9M7NQ01_KWsCiQuHeLajqW/view?usp=sharing',
   },
 }

@@ -55,9 +55,23 @@ function CertificateCard({ certificate }) {
       </div>
 
       {image ? (
-        <a href={image} target="_blank" rel="noopener noreferrer" className="block rounded-xl overflow-hidden shine-effect"
-          style={{ border: '1px solid var(--border)' }}>
-          <img src={image} alt="Synergy Maritime internship certificate" className="w-full h-auto block" loading="lazy" />
+        <a
+          href={image}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Open full certificate"
+          aria-label="Open full Synergy Maritime internship certificate"
+          className="group flex-1 flex items-center justify-center rounded-xl p-4 transition-all duration-300 border border-[rgba(167,139,250,0.25)] hover:border-[rgba(167,139,250,0.6)] hover:shadow-[0_0_28px_rgba(167,139,250,0.18)]"
+          style={{ background: 'linear-gradient(135deg, rgba(167,139,250,0.06) 0%, rgba(125,211,252,0.03) 100%)' }}
+        >
+          <img
+            src={image}
+            alt="Synergy Maritime internship certificate"
+            width={500}
+            height={705}
+            loading="lazy"
+            className="block w-auto h-auto max-w-full max-h-[440px] object-contain rounded-md shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+          />
         </a>
       ) : (
         /* PLACEHOLDER — replaced automatically once workExperience.certificate is set in data.js */
