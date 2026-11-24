@@ -327,6 +327,7 @@ export const workExperience = {
         'Improved application workflows and user experience.',
       ],
       tags: ['Vessel Management', 'Image Comparison', 'Location Intelligence', 'API Integration'],
+      repo: { name: 'Synergy-Vessel', url: 'https://github.com/DharunKumarS-code/Synergy-Vessel' },
     },
     {
       id: 'voice',
@@ -342,6 +343,7 @@ export const workExperience = {
         'Improved accessibility and user interaction.',
       ],
       tags: ['Voice Recognition', 'Voice Interaction', 'Accessibility'],
+      repo: { name: 'VoiceStudio', url: 'https://github.com/DharunKumarS-code/voicestudio' },
     },
     {
       id: 'chatbot',
@@ -357,6 +359,7 @@ export const workExperience = {
         'Enhanced user experience through intelligent responses and contextual interactions.',
       ],
       tags: ['Conversational AI', 'Chat Workflows', 'Personalization'],
+      repo: { name: 'SynergyAI', url: 'https://github.com/DharunKumarS-code/synergyAI' },
     },
     {
       id: 'automation',

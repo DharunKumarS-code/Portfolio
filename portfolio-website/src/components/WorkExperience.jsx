@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { Award, Bot, Briefcase, Calendar, ExternalLink, FileBadge, Lock, Mic, Ship, Workflow } from 'lucide-react'
+import { ArrowUpRight, Award, Bot, Briefcase, Calendar, ExternalLink, FileBadge, Github, Lock, Mic, Ship, Workflow } from 'lucide-react'
 import { workExperience } from '../data'
 
 const ICONS = { ship: Ship, mic: Mic, bot: Bot, workflow: Workflow }
@@ -175,6 +175,29 @@ function WorkstreamDetail({ stream }) {
           </span>
         ))}
       </div>
+
+      {stream.repo && (
+        <a
+          href={stream.repo.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${stream.repo.name} repository on GitHub (opens in a new tab)`}
+          className="group mt-6 inline-flex max-w-full items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-[rgba(167,139,250,0.6)] hover:shadow-[0_0_24px_rgba(167,139,250,0.18)]"
+          style={{
+            background: 'rgba(167,139,250,0.06)',
+            border: '1px solid rgba(167,139,250,0.28)',
+            color: 'var(--text-1)',
+          }}
+        >
+          <Github size={16} className="flex-shrink-0" style={{ color: 'var(--electric)' }} />
+          <span className="truncate">View {stream.repo.name} Repository</span>
+          <ArrowUpRight
+            size={15}
+            className="flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            style={{ color: 'var(--text-3)' }}
+          />
+        </a>
+      )}
     </motion.div>
   )
 }
