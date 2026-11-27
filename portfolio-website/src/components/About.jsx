@@ -136,7 +136,7 @@ export default function About() {
             <motion.div variants={fadeUp} className="flex flex-col gap-5">
               <p className="text-lg leading-relaxed" style={{ color: 'var(--text-2)' }}>
                 I'm <strong style={{ color: 'var(--text-1)' }}>Dharun Kumar</strong>, a Computer Science student at SKCET
-                (graduating 2026), specializing in building intelligent systems at the intersection of
+                (graduating 2028), specializing in building intelligent systems at the intersection of
                 AI, data, and software engineering.
               </p>
               <p className="leading-relaxed" style={{ color: 'var(--text-2)' }}>
